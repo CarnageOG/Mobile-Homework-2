@@ -24,8 +24,8 @@ export default function RootLayout() {
           options={{ headerShown: false, title: "MENU" }}
         />
         <Stack.Screen
-          name="modal"
-          options={{ presentation: "modal", title: "Modal" }}
+          name="details/[id]"
+          options={{ headerShown: false, title: "Details" }}
         />
       </Stack>
       <StatusBar style="auto" />

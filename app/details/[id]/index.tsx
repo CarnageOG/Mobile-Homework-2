@@ -5,31 +5,15 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 function ProductDetails() {
   const { id } = useLocalSearchParams();
   const [product, setProduct] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then((res) => res.json())
-      .then((result) => setProduct(result))
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
+      .then((result) => setProduct(result));
   }, [id]);
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.error_loading}>Product is Loading...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.error_loading}>Something went wrong...</Text>
-      </View>
-    );
+  if (!product) {
+    return null;
   }
 
   return (
@@ -54,19 +38,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
 
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  error_loading: {
-    fontSize: 18,
-    color: "red",
-  },
-
   card: {
-    borderRadius: 12,
     padding: 20,
   },
 

@@ -1,49 +1,18 @@
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Image, Pressable, StyleSheet, Text } from "react-native";
 
 const Index = () => {
   const router = useRouter();
-  const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((result) => {
         setProducts(result);
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
       });
   }, []);
-
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.error_loading}>LOADING</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.error_loading}>Something went wrong</Text>
-      </View>
-    );
-  }
 
   return (
     <FlatList
@@ -58,7 +27,9 @@ const Index = () => {
           onPress={() => router.push(`/details/${product.id}`)}
         >
           <Image source={{ uri: product.image }} style={styles.product_img} />
+
           <Text style={styles.product_title}>{product.title}</Text>
+
           <Text style={styles.product_price}>Price: {product.price} $</Text>
         </Pressable>
       )}
@@ -76,17 +47,6 @@ const styles = StyleSheet.create({
 
   list_content: {
     padding: 16,
-  },
-
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  error_loading: {
-    fontSize: 18,
-    color: "red",
   },
 
   product_card: {
