@@ -24,11 +24,11 @@ export default function RootLayout() {
           options={{ headerShown: false, title: "MENU" }}
         />
         <Stack.Screen
-          name="details/[id]"
-          options={{ headerShown: false, title: "Details" }}
+          name="details"
+          options={{ headerShown: true, title: "Product Details" }}
         />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </ThemeProvider>
   );
 }
